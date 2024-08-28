@@ -1,5 +1,7 @@
-// import Image from "next/image";
 import ArticleForm from "@/components/ArticleForm";
+import Subtitle from "@/components/subtitle";
+import Video from "@/components/video";
+import Link from "@/components/Link";
 import Header from "@/components/Header";
 
 export default function Home() {
@@ -7,6 +9,9 @@ export default function Home() {
     <>
       <Header/>
       <ArticleForm />
+      <Video/>
+      <Link/>
+      <Subtitle/>
     </>
   );
 }
