@@ -1,0 +1,18 @@
+def generate_movie(image_url: string, subtitles: list):
+subtitles = [
+    "こんにちは",
+    "どうも"
+]
+
+文字数
+１行あたり13文字まで
+仮に文章ごとに区切られたとして
+
+for i, subtitle in enumerate(subtitles):
+        subtitle_clip = TextClip(
+            subtitle, font="./NotoSansJP-Regular.otf", fontsize=24, color="black", bg_color="white"
+        )
+        subtitle_clip = subtitle_clip.set_duration(10).set_start(i * 10)
+        subtitle_clip = subtitle_clip.set_position(("center", 0.75), relative=True)
+        subtitle_clips.append(subtitle_clip)
+
