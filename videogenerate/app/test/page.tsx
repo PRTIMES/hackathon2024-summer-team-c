@@ -5,12 +5,7 @@ import { useState } from "react";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { DndContext } from "@dnd-kit/core";
 import { SortableItem } from "@/components/SortableItem";
-
-type Article = {
-  title: string;
-  subtitle: string;
-  content: string;
-};
+import { ReleaseData } from "@/app/page";
 
 type Subtitle = {
   id: number;
@@ -18,21 +13,24 @@ type Subtitle = {
 };
 
 type Props = {
+  data: ReleaseData|null;
+  setData: (data: ReleaseData | null) => void;
   base64Image: string | null;
   setBase64Image: (value: string | null) => void;
 }
 
-export default function Test({ base64Image }: Props) {
-  const article1: Article = {
-    title: "人工知能",
-    subtitle: "AI",
-    content: "人工知能（AI）は、コンピュータが人間の知能を模倣する能力です。",
+export default function Test({ data,base64Image }: Props) {
+  const article1: ReleaseData = {
+    title: data?.title ?? "",
+    subtitle:data?.subtitle ?? "",
+    body: data?.body ?? "",
   };
 
   const [subtitles, setSubtitles] = useState<Subtitle[]>([]);
   const [video, setVideo] = useState<string | null>(null);
 
-  const getSubtitles = async (article: Article) => {
+  const getSubtitles = async (article: ReleaseData) => {
+    console.log(article);
     try {
       const response = await fetch("/api/subtitles", {
         method: "POST",
@@ -82,12 +80,12 @@ export default function Test({ base64Image }: Props) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-auto bg-gray-100 p-32">
+    <div className="flex flex-col items-center justify-center mx-auto h-auto bg-gray-100 p-32 m-8 rounded-xl max-w-6xl">
       <button
         onClick={async () => await getSubtitles(article1)}
         className="w-auto mt-4 text-white px-4 py-2 rounded-lg bg-black hover:bg-gray-500"
       >
-        Get Subtitles
+        字幕を取得する
       </button>
 
       <div className="w-full">
@@ -126,7 +124,7 @@ export default function Test({ base64Image }: Props) {
         onClick={() => getVideo(base64Image, subtitles)}
         className="w-auto mt-4 text-white px-4 py-2 rounded-lg bg-black hover:bg-gray-500"
       >
-        Get Video
+        動画を作成する
       </button>
 
       {video && (
