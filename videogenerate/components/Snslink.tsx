@@ -1,6 +1,6 @@
 import { FaYoutube, FaTiktok, FaInstagram } from 'react-icons/fa';
 
-export default function Link() {
+export default function Snslink() {
     return (
         <div className="video-container flex flex-col items-center justify-center min-h-screen bg-gray-50 space-y-4">
             <a className="flex items-center text-blue-500 text-lg font-medium hover:underline" href="https://www.youtube.com/?gl=JP&hl=ja&app=desktop">
