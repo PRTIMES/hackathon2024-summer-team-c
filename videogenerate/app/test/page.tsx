@@ -18,7 +18,7 @@ type Props = {
   setBase64Image: (value: string | null) => void;
 }
 
-export default function Test({base64Image}: Props) {
+export default function Test({ base64Image }: Props) {
   const article1: Article = {
     title: "人工知能",
     subtitle: "AI",
@@ -46,7 +46,7 @@ export default function Test({base64Image}: Props) {
     }
   };
 
-  const getVideo = async (base64Image: string | null,subtitles: Subtitle[]) => {
+  const getVideo = async (base64Image: string | null, subtitles: Subtitle[]) => {
     if (!base64Image) {
       console.error("Base64 image is not set");
       return;
@@ -56,10 +56,9 @@ export default function Test({base64Image}: Props) {
       return;
     }
 
-
     const videoRequest = {
       base64Image,
-      subtitles
+      subtitles,
     };
 
     try {
@@ -79,21 +78,29 @@ export default function Test({base64Image}: Props) {
   };
 
   return (
-    <>
-      <button onClick={async () => await getSubtitles(article1)} className="w-auto mt-4 bg-[#2a4b7a] text-white px-4 py-2 rounded-lg hover:bg-[#1E90FF]">
+    <div className="flex flex-col items-center justify-center h-auto bg-gray-100 p-8 m-8">
+      <button
+        onClick={async () => await getSubtitles(article1)}
+        className="w-auto mt-4 text-white px-4 py-2 rounded-lg bg-black hover:bg-gray-500"
+      >
         Get Subtitles
       </button>
-      <ul>
+      <ul className="list-disc mt-4">
         {subtitles.map((subtitle) => (
-          <li key={subtitle.id}>{subtitle.content} </li>
+          <li key={subtitle.id}>{subtitle.content}</li>
         ))}
       </ul>
-      <button onClick={() => getVideo(base64Image,subtitles)} className="w-auto mt-4 bg-[#2a4b7a] text-white px-4 py-2 rounded-lg hover:bg-[#1E90FF]">Get Video</button>
+      <button
+        onClick={() => getVideo(base64Image, subtitles)}
+        className="w-auto mt-4 text-white px-4 py-2 rounded-lg bg-black hover:bg-gray-500"
+      >
+        Get Video
+      </button>
       {video && (
-        <video controls width="600">
+        <video controls width="600" className="mt-4">
           <source src={`${video}`} type="video/mp4" />
         </video>
       )}
-    </>
+    </div>
   );
 }
