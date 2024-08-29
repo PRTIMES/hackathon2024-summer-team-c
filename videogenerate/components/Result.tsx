@@ -52,7 +52,7 @@ const Result: React.FC<ResultProps> = ({ data, setData }) => {
   };
 
   return (
-    <div className="result-container p-6 max-w-lg mx-auto bg-white rounded-xl shadow-md space-y-4">
+    <div className="result-container p-6 max-w-lg mx-auto bg-gray-100 rounded-xl shadow-md space-y-4">
       <label
         htmlFor="company-id"
         className="block mb-2 text-sm font-medium text-gray-700"
@@ -81,7 +81,7 @@ const Result: React.FC<ResultProps> = ({ data, setData }) => {
         onChange={(e) => setReleaseId(e.target.value)}
       />
 
-      <button onClick={handleClick} className="w-full mt-4 bg-[#2a4b7a] text-white px-4 py-2 rounded-lg hover:bg-[#1E90FF]">
+      <button onClick={handleClick} className="w-full mt-4 text-white px-4 py-2 rounded-lg bg-black hover:bg-gray-500">
         記事内容を自動表示する
       </button>
 

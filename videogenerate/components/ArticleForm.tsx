@@ -20,8 +20,8 @@ export default function ArticleForm({ data, base64Image, setBase64Image }: Props
   const [editbodyData, setEditbodyData] = useState<string>(data.body);
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6 text-gray-900">
+    <div className="bg-gray-100 p-6 rounded-lg shadow-md m-8">
+      <h1 className="text-2xl font-bold mb-6 text-gray-900 flex flex-col items-center justify-center">
         手動で記事を生成する場合は、以下のフォームに入力してください。プレスリリースを配信していなくても動画を作成できます
       </h1>
 

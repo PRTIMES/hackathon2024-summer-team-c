@@ -69,20 +69,20 @@ export default function DropImageZone({base64Image, setBase64Image}: Props) {
         onDragOver={handleDragOver}
       >
         <input
-        placeholder="a"
           type="file"
           accept="image/*"
           onChange={handleFileChange}
           className="mb-2"
+          placeholder="画像を選択"
         />
         <p>ここに画像をドラッグ＆ドロップするか、ファイルを選択してください。</p>
 
         {image && (
-          <div className="relative w-full h-full overflow-hidden">
+          <div className="relative w-1/2 h-1/2 overflow-hidden flex items-center justify-center">
             <img
               src={image}
               alt="Uploaded"
-              className="absolute inset-0 w-full h-full object-cover"
+              className="max-w-full max-h-full object-contain"
             />
             <div className="absolute bottom-2 left-2 bg-white bg-opacity-75 px-2 py-1 rounded-lg flex items-center">
               <span className="mr-2">{imageName}</span>
