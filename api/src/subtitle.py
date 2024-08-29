@@ -2,16 +2,14 @@ import os
 
 from openai import OpenAI
 from pydantic import BaseModel
-from .classes import Article
 
 
 class SubtitleFormat(BaseModel):
     subtitles: list[str]
 
 
-def create_subtitles(article: Article):
+def create_subtitles(title: str, subtitle: str, content: str):
     client = OpenAI(
-        # This is the default and can be omitted
         api_key=os.environ.get("OPENAI_API_KEY"),
     )
 
@@ -19,12 +17,13 @@ def create_subtitles(article: Article):
     あなたは優秀なAIアシスタントです。
     次のWebサイトの内容を15秒の動画にしたときの字幕を生成してください。
     一つの字幕の長さは5秒程度にしてください。
+    また、字幕の個数は5個程度にしてください。
     """
 
     content = f"""
-    title: {article.title}
-    subtitle: {article.subtitle}
-    content: {article.content}
+    title: {title}
+    subtitle: {subtitle}
+    content: {content}
     """
 
     response = client.beta.chat.completions.parse(
