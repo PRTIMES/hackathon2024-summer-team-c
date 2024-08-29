@@ -8,6 +8,7 @@ from .dummy_data import dummyBase64Video
 from .classes import SubtitlesRequest, VideoRequest
 from .subtitle import create_subtitles
 from .tts import subtitles_to_speeches_google
+from .video import generate_video
 
 app = FastAPI()
 
@@ -41,13 +42,12 @@ async def post_video(videoRequest: VideoRequest):
     os.makedirs(data_path, exist_ok=True)
 
     subtitles = videoRequest.subtitles
-    speeches = subtitles_to_speeches_google(data_path, subtitles)
+    subtitles_to_speeches_google(data_path, subtitles)
     base64Image = videoRequest.thumbnail
 
-    # video = create_video(data_path, base64Image, subtitles, speeches)
-    video = dummyBase64Video
+    base64Video = generate_video(data_path, base64Image, subtitles)
 
     response = {
-        "video": video,
+        "video": base64Video,
     }
     return response
