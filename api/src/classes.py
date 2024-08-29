@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class Article(BaseModel):
+class SubtitlesRequest(BaseModel):
     title: str
     subtitle: str
     content: str

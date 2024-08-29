@@ -1,12 +1,13 @@
 import os
 import uuid
+import re
 
 from fastapi import FastAPI
 
 from .dummy_data import dummyBase64Video
-from .classes import Article, VideoRequest
+from .classes import SubtitlesRequest, VideoRequest
 from .subtitle import create_subtitles
-from .tts import subtitles_to_speeches
+from .tts import subtitles_to_speeches_google
 
 app = FastAPI()
 
@@ -22,8 +23,12 @@ def read_item(item_id: int, q: str = None):
 
 
 @app.post("/subtitles")
-async def post_subtitles(article: Article):
-    subtitles = create_subtitles(article)
+async def post_subtitles(subtitlesRequest: SubtitlesRequest):
+    title = subtitlesRequest.title
+    subtitle = subtitlesRequest.subtitle
+    content = subtitlesRequest.content
+    subtitles = create_subtitles(title, subtitle, re.sub(re.compile("<.*?>"), "", content))
+
     response = {"subtitles": []}
     for i, subtitle in enumerate(subtitles):
         response["subtitles"].append({"id": i, "content": subtitle})
@@ -36,7 +41,7 @@ async def post_video(videoRequest: VideoRequest):
     os.makedirs(data_path, exist_ok=True)
 
     subtitles = videoRequest.subtitles
-    speeches = subtitles_to_speeches(data_path, subtitles)
+    speeches = subtitles_to_speeches_google(data_path, subtitles)
     base64Image = videoRequest.thumbnail
 
     # video = create_video(data_path, base64Image, subtitles, speeches)
