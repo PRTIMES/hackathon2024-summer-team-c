@@ -78,7 +78,7 @@ export default function Test() {
           <li key={subtitle.id}>{subtitle.content} </li>
         ))}
       </ul>
-      <button onClick={() => getVideo(subtitles)}>Get Video</button>
+      <button onClick={() => getVideo("thumbnailBase64", subtitles)}>Get Video</button>
       {video && (
         <video controls width="600">
           <source src={`${video}`} type="video/mp4" />
