@@ -1,5 +1,7 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from .dummy_data import dummyBase64Image
+from .classes import Article, VideoRequest
+from .subtitle import create_subtitles
 
 app = FastAPI()
 
@@ -13,22 +15,19 @@ def read_root():
 def read_item(item_id: int, q: str = None):
     return {"item_id": item_id, "q": q}
 
-class Article(BaseModel):
-    title: str
-    subtitle: str
-    content: str
-    
-@app.post("/subtitles/")
-async def create_subtitles(article: Article):
-    return article
 
-class Subtitle(BaseModel):
-    id: int
-    content: str
+@app.post("/subtitles")
+async def post_subtitles(article: Article):
+    subtitles = create_subtitles(article)
+    response = {"subtitles": []}
+    for i, subtitle in enumerate(subtitles):
+        response["subtitles"].append({"id": i, "content": subtitle})
+    return response
 
-class Subtitles(BaseModel):
-    subtitles: list[str]
 
-@app.post("/video/")
-async def create_video(subtitles: Subtitles):
-    return subtitles
+@app.post("/video")
+async def post_video(videoRequest: VideoRequest):
+    response = {
+        "video": dummyBase64Image,
+    }
+    return response
