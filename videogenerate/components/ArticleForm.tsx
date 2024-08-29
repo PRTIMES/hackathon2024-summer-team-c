@@ -3,9 +3,9 @@ import DropImageZone from "./DropImageZone";
 import React, { useState } from 'react';
 
 export default function ArticleForm({data}) {
-  const [edittitleData, setEdittitleData] = useState(data)
-  const [editminititleData, setEditminititleData] = useState(data)
-  const [editbodyData, setEditbodyData] = useState(data)
+  const [edittitleData, setEdittitleData] = useState<string | null>(data)
+  const [editminititleData, setEditminititleData] = useState<string | null>(data)
+  const [editbodyData, setEditbodyData] = useState<string | null>(data)
 
   return (
     <div>
@@ -93,7 +93,7 @@ export default function ArticleForm({data}) {
           placeholder="Leave a comment..."
         ></input> */}
 
-        <DropImageZone />
+        <DropImageZone/>
 
         <div className="flex justify-center mt-4">
         </div>

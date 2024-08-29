@@ -6,6 +6,11 @@ import { useState } from "react";
 //   subtitles: Subtitle[];
 // };
 
+// type VideoRequest = {
+//   thumbnail: string,
+//   subtitles: Subtitle[]
+// }
+
 // type VideoResponse = {
 //   video: string;
 // };
@@ -20,6 +25,7 @@ type Subtitle = {
   id: number;
   content: string;
 };
+
 
 export default function Test() {
   const article1 = {
@@ -45,19 +51,23 @@ export default function Test() {
     // setSubtitles(subtitles);
   };
 
-  const getVideo = async (subtiles: Subtitle[]) => {
+  const getVideo = async (thumbnail: string, subtitles: Subtitle[]) => {
+    const videoRequest = {
+      thumbnail,
+      subtitles
+    }
     const response = await fetch("/api/video", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(subtitles),
+      body: JSON.stringify(videoRequest),
     });
 
     const { video } = await response.json();
     setVideo(video);
   };
-  
+
   return (
     <>
       <button onClick={async () => await getSubtitles(article1)}>
@@ -68,7 +78,7 @@ export default function Test() {
           <li key={subtitle.id}>{subtitle.content} </li>
         ))}
       </ul>
-      <button onClick={() => getVideo(subtitles)}>Get Video</button>
+      <button onClick={() => getVideo("thumbnailBase64", subtitles)}>Get Video</button>
       {video && (
         <video controls width="600">
           <source src={`${video}`} type="video/mp4" />
