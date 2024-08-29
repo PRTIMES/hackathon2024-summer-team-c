@@ -1,4 +1,4 @@
-import { useState } from 'react'
+/*import { useState } from 'react'
 
 export default function Subtitle() {
     const [editcaptionData, setEditcaptionData] = useState("")
@@ -26,3 +26,4 @@ export default function Subtitle() {
         </div>
     )
 }
+*/
