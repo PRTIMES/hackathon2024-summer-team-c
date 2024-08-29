@@ -14,10 +14,10 @@ import React, { useState } from 'react';
 import Test from "./test/page";
 
 // Articleの型を定義します
-type ReleaseData = {
-  id: string;
+export type ReleaseData = {
   title: string;
-  content: string;
+  subtitle: string;
+  body: string;
   // その他のフィールドを必要に応じて追加してください
 };
 
@@ -30,10 +30,11 @@ export default function Home() {
     <>
       <Header />
       <Result data={data} setData={setData} />
+      {!data && <ArticleForm data={data} base64Image={base64Image} setBase64Image={setBase64Image} />}
       {data && <ArticleForm data={data} base64Image={base64Image} setBase64Image={setBase64Image} />}
       {/*<Subtitle/>*/}
       {/*<Video/>*/}
-      <Test base64Image={base64Image} setBase64Image={setBase64Image}/>
+      <Test data={data} base64Image={base64Image} setBase64Image={setBase64Image}/>
       <Snslink/>   
       {/*{data && <Pvresult data={data}/>} */}
     </>
