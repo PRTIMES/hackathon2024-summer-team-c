@@ -64,7 +64,7 @@ export default function DropImageZone({base64Image, setBase64Image}: Props) {
   return (
     <div>
       <div
-        className="relative border-2 border-dashed border-gray-300 rounded-lg text-center w-full h-64"
+        className="relative border-2 border-dashed border-black border-gray-300 rounded-lg text-center w-full h-64"
         onDrop={handleDrop}
         onDragOver={handleDragOver}
       >
