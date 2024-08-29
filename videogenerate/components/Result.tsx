@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 
-const getSingleItem = async (companyId, releaseId) => {
+// APIから返されるデータの型を定義します
+type ReleaseData = {
+  id: string;
+  title: string;
+  content: string;
+  // その他のフィールドを必要に応じて追加してください
+};
+
+// APIからデータを取得する関数に型を付けます
+const getSingleItem = async (companyId: string, releaseId: string): Promise<ReleaseData> => {
   const response = await fetch(`https://hackathon.stg-prtimes.net/api/companies/${companyId}/releases/${releaseId}`, {
     method: "GET",
     headers: {
@@ -14,21 +23,31 @@ const getSingleItem = async (companyId, releaseId) => {
     throw new Error('Network response was not ok');
   }
 
-  const jsonData = await response.json();
+  const jsonData: ReleaseData = await response.json();
   return jsonData;
 };
 
-const Result = ({ data, setData }) => {
-  const [companyId, setCompanyId] = useState<string | null>(''); 
-  const [releaseId, setReleaseId] = useState<string | null>(''); 
-  const [error, setError] = useState(null); 
+type ResultProps = {
+  data: ReleaseData | null;
+  setData: (data: ReleaseData | null) => void;
+};
+
+const Result: React.FC<ResultProps> = ({ data, setData }) => {
+  const [companyId, setCompanyId] = useState<string>(''); 
+  const [releaseId, setReleaseId] = useState<string>(''); 
+  const [error, setError] = useState<string | null>(null); 
 
   const handleClick = async () => {
     try {
       const result = await getSingleItem(companyId, releaseId);
       setData(result); 
+      setError(null); // エラーをクリア
     } catch (err) {
-      setError(err.message);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     }
   };
 
@@ -62,10 +81,11 @@ const Result = ({ data, setData }) => {
         onChange={(e) => setReleaseId(e.target.value)}
       />
 
-      <button onClick={handleClick} className="w-full mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+      <button onClick={handleClick} className="w-full mt-4 bg-[#2a4b7a] text-white px-4 py-2 rounded-lg hover:bg-[#1E90FF]">
         記事内容を自動表示する
       </button>
 
+      {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
   );
 }
