@@ -6,7 +6,7 @@ export async function GET(request: Request) {
 
   // クエリパラメータが存在しない場合のエラーハンドリング
   if (!subtitles) {
-    return new Response('Query parameter "content" is required', {
+    return new Response('Query parameter "subtitles" is required', {
       status: 400,
     });
   }
