@@ -5,6 +5,7 @@ export async function POST(request: Request) {
   try {
     // リクエストボディを取得
     const data = await request.json();
+    console.log(data);
 
     // 例: リクエストデータを処理する
     const { thumbnail, subtitles } = data;

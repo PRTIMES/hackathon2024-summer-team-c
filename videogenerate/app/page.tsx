@@ -9,17 +9,27 @@ import Result from "@/components/Result";
 import React, { useState } from 'react';
 import Test from "./test/page";
 
+// Articleの型を定義します
+type ReleaseData = {
+  id: string;
+  title: string;
+  content: string;
+  // その他のフィールドを必要に応じて追加してください
+};
+
 
 export default function Home() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<ReleaseData | null>(null); // Articleまたはnull
+  const [base64Image, setBase64Image] = useState<string | null>(null);
+
   return (
     <>
       <Header/>
       <Result data={data} setData={setData} />
-      {data && <ArticleForm data={data}/>}
+      {data && <ArticleForm data={data} base64Image={base64Image} setBase64Image={setBase64Image} />}
       {/*<Subtitle/>*/}
       {/*<Video/>*/}
-      <Test/>
+      <Test base64Image={base64Image} setBase64Image={setBase64Image}/>
       <Snslink/>   
       {/*{data && <Pvresult data={data}/>} */}
     </>
