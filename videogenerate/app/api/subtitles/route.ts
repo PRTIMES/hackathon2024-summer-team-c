@@ -3,24 +3,19 @@ import { testSubtitles } from "./testSubtitlesData";
 
 export async function POST(request: Request) {
   try {
-    // リクエストボディを取得
     const data = await request.json();
 
-    // 例: リクエストデータを処理する
-    const { title, subtitle, content } = data;
-
-    // 任意の処理 (例: データベースへの保存など)
-    console.log(title, subtitle, content);
-
-    // レスポンスを返す
+    return await fetch("http://localhost:80/subtitles", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  } catch (error) {
+    console.log(error);
     return Response.json({
       subtitles: testSubtitles,
     });
-  } catch (error) {
-    // エラーハンドリング
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
   }
 }
