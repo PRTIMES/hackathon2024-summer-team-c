@@ -5,7 +5,7 @@ from openai import OpenAI
 from .classes import Subtitle
 
 
-def subtitles_to_speeches(data_path: str, subtitles: Subtitle):
+def subtitles_to_speeches(data_path: str, subtitles: list[Subtitle]):
     client = OpenAI(
         # This is the default and can be omitted
         api_key=os.environ.get("OPENAI_API_KEY"),
