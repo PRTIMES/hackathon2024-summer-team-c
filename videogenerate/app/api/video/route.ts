@@ -1,4 +1,3 @@
-import { testVideoBase64 } from "./testVideoData";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -6,13 +5,15 @@ export async function POST(request: Request) {
     // リクエストボディを取得
     const data = await request.json();
     console.log(data);
+    // console.log(JSON.stringify(data));
+    // const data = { thumbnail: "test" };
 
-    // 例: リクエストデータを処理する
-    const { thumbnail, subtitles } = data;
-    console.log(thumbnail, subtitles);
-
-    return NextResponse.json({
-      video: testVideoBase64,
+    return await fetch("http://localhost:80/video", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
   } catch (error) {
     // エラーハンドリング
