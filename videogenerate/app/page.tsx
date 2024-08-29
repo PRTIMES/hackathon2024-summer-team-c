@@ -5,6 +5,10 @@ import ArticleForm from "@/components/ArticleForm";
 import Snslink from "@/components/Snslink";
 import Header from "@/components/Header";
 import Result from "@/components/Result";
+// import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+// import { DndContext } from "@dnd-kit/core";
+// import { SortableItem } from "@/components/SortableItem";
+// // import { SortableItemProp } from "./type/sortable";
 //import Pvresult from "@/components/Pvresult";
 import React, { useState } from 'react';
 import Test from "./test/page";
@@ -24,7 +28,7 @@ export default function Home() {
 
   return (
     <>
-      <Header/>
+      <Header />
       <Result data={data} setData={setData} />
       {data && <ArticleForm data={data} base64Image={base64Image} setBase64Image={setBase64Image} />}
       {/*<Subtitle/>*/}
