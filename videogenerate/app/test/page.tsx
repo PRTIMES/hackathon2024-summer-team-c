@@ -31,14 +31,6 @@ type Subtitle = {
   content: string;
 };
 
-// const INITIAL_ITEMS = [
-//   { id: 1, name: "ソータブルアイテム　A" },
-//   { id: 2, name: "ソータブルアイテム　B" },
-//   { id: 3, name: "ソータブルアイテム　C" },
-//   { id: 4, name: "ソータブルアイテム　D" },
-//   { id: 5, name: "ソータブルアイテム　E" },
-// ];
-
 export default function Test() {
   const article1 = {
     title: "人工知能",
@@ -47,7 +39,6 @@ export default function Test() {
   };
   const [subtitles, setSubtitles] = useState<Subtitle[]>([]);
   const [video, setVideo] = useState<string | null>(null);
-  // const [items, setItems] = useState(INITIAL_ITEMS);
 
   const getSubtitles = async (article: Article) => {
     const response = await fetch("/api/subtitles", {
@@ -61,7 +52,6 @@ export default function Test() {
     const { subtitles } = await response.json();
     setSubtitles(subtitles);
     return subtitles;
-    // setSubtitles(subtitles);
   };
 
   const getVideo = async (thumbnail: string, subtitles: Subtitle[]) => {

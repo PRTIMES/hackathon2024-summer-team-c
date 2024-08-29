@@ -8,8 +8,6 @@ type Props = {
   content?: string;
 };
 
-
-
 export const SortableItem: FC<Props> = ({ id, content }) => {
   const {
     setNodeRef,
