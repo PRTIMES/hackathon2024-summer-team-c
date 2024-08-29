@@ -5,8 +5,9 @@ import Video from "@/components/Video";
 import Link from "@/components/Link";
 import Header from "@/components/Header";
 import Result from "@/components/Result";
-import Pv from "@/components/Pv";
+/*import Pvresult from "@/components/Pvresult";*/
 import React, { useState } from 'react';
+
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -14,11 +15,11 @@ export default function Home() {
     <>
       <Header/>
       <Result data={data} setData={setData} />
-      <ArticleForm data={data}/>
-      <Video/>
-      <Link/>
+      {data && <ArticleForm data={data}/>}
       <Subtitle/>
-      
+      <Video/>
+      <Link/>   
+      {/*{data && <Pvresult data={data}/>} */}
     </>
   );
 }
