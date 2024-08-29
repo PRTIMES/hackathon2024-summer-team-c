@@ -57,6 +57,7 @@ export default function Test() {
     const { video } = await response.json();
     setVideo(video);
   };
+  
   return (
     <>
       <button onClick={async () => await getSubtitles(article1)}>
