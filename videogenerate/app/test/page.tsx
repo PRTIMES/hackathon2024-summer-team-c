@@ -116,7 +116,7 @@ export default function Test() {
             </div>
           </SortableContext>
         </DndContext>
-        <div className="text-red-500">{JSON.stringify(subtitles)}</div>
+        {/* <div className="text-red-500">{JSON.stringify(subtitles)}</div> */}
       </div>
 
       <button onClick={() => getVideo("thumbnailBase64", subtitles)}>
