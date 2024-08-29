@@ -2,100 +2,97 @@
 import DropImageZone from "./DropImageZone";
 import React, { useState } from 'react';
 
-export default function ArticleForm({data}) {
-  const [edittitleData, setEdittitleData] = useState<string | null>(data)
-  const [editminititleData, setEditminititleData] = useState<string | null>(data)
-  const [editbodyData, setEditbodyData] = useState<string | null>(data)
+type Article = {
+  title: string;
+  subtitle: string;
+  body: string;
+};
+
+type Props = {
+  data: Article;
+  base64Image: string | null;
+  setBase64Image: (value: string | null) => void;
+};
+
+export default function ArticleForm({ data, base64Image, setBase64Image }: Props) {
+  const [edittitleData, setEdittitleData] = useState<string>(data.title);
+  const [editminititleData, setEditminititleData] = useState<string>(data.subtitle);
+  const [editbodyData, setEditbodyData] = useState<string>(data.body);
 
   return (
-    <div>
-      <h1>手動で記事を生成する場合は、以下のフォームに入力してください。プレスリリースを配信していなくても動画を作成できます</h1>
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h1 className="text-2xl font-bold mb-6 text-gray-900">
+        手動で記事を生成する場合は、以下のフォームに入力してください。プレスリリースを配信していなくても動画を作成できます
+      </h1>
 
-      <form className="max-w-sm mx-auto">
-        <label
-          htmlFor="article-body"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        />
-
-        <label
-          htmlFor="article-title"
-          className="block my-2.5 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          記事のタイトル
-        </label>
-        <div className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
-          <textarea
-            id="article-title"
-            className="w-full h-full bg-transparent border-none outline-none resize-none"
-            value={edittitleData.title} // data.body を value に設定
-            onChange={(event) => {
-              setEdittitleData({
-                ...edittitleData,
-                title: event.target.value
-              })
-            }} // 必要に応じて onChange ハンドラを追加
-          />
+      <form className="space-y-6">
+        <div>
+          <label
+            htmlFor="article-title"
+            className="block text-sm font-medium text-gray-700"
+          >
+            記事のタイトル
+          </label>
+          <div className="mt-1">
+            <textarea
+              id="article-title"
+              className="block w-full p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+              value={edittitleData}
+              onChange={(event) => setEdittitleData(event.target.value)}
+              rows={3}
+            />
+          </div>
         </div>
 
-
-        <label
-          htmlFor="article-title"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          記事のサブタイトル
-        </label>
-        <div className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
-          <textarea
-            id="article-title"
-            className="w-full h-full bg-transparent border-none outline-none resize-none"
-            value={editminititleData.subtitle} // data.body を value に設定
-            onChange={(event) => {
-              setEditminititleData({
-                ...editminititleData,
-                subtitle: event.target.value
-              })
-            }} // 必要に応じて onChange ハンドラを追加
-          />
+        <div>
+          <label
+            htmlFor="article-subtitle"
+            className="block text-sm font-medium text-gray-700"
+          >
+            記事のサブタイトル
+          </label>
+          <div className="mt-1">
+            <textarea
+              id="article-subtitle"
+              className="block w-full p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+              value={editminititleData}
+              onChange={(event) => setEditminititleData(event.target.value)}
+              rows={2}
+            />
+          </div>
         </div>
 
-        <label
-          htmlFor="article-body"
-          className="block my-2.5 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          記事の内容
-        </label>
-        <div className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 h-[500px]">
-          <textarea
-            id="article-body"
-            className="w-full h-full bg-transparent border-none outline-none resize-none"
-            value={editbodyData.body} // data.body を value に設定
-            onChange={(event) => {
-              setEditbodyData({
-                ...editbodyData,
-                body: event.target.value
-              })
-            }} // 必要に応じて onChange ハンドラを追加
-          />
+        <div>
+          <label
+            htmlFor="article-body"
+            className="block text-sm font-medium text-gray-700"
+          >
+            記事の内容
+          </label>
+          <div className="mt-1">
+            <textarea
+              id="article-body"
+              className="block w-full h-[200px] p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+              value={editbodyData}
+              onChange={(event) => setEditbodyData(event.target.value)}
+              rows={10}
+            />
+          </div>
         </div>
 
+        <div>
+          <label
+            htmlFor="article-thumbnail"
+            className="block text-sm font-medium text-gray-700"
+          >
+            記事のサムネイル
+          </label>
+          <div className="mt-1">
+            <DropImageZone base64Image={base64Image} setBase64Image={setBase64Image} />
+          </div>
+        </div>
 
-
-
-        <label
-          htmlFor="article-title"
-          className="block my-2.5 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          記事のサムネイル
-        </label>
-        {/* <input
-          id="article-title"
-          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-          placeholder="Leave a comment..."
-        ></input> */}
-
-        <DropImageZone/>
-
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-6">
         </div>
       </form>
     </div>
