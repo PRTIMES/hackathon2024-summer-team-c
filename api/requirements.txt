@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+moviepy
+openai
+pydantic
+numpy
+opencv-python
