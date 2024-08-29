@@ -16,3 +16,21 @@ for i, subtitle in enumerate(subtitles):
         subtitle_clip = subtitle_clip.set_position(("center", 0.75), relative=True)
         subtitle_clips.append(subtitle_clip)
 
+#色の反転
+from moviepy.editor import VideoFileClip
+
+def func(frame):
+    """
+    :param frame: (H, W, Channel) [ndarray]
+    :return: (H, W, Channel) [ndarray]
+    """
+    return -frame + 255 # 色を反転
+
+inpout_video = "test_input.mp4"
+output_video = 'test_output.mp4'
+
+clip1 = VideoFileClip(inpout_video)
+project_clip = clip1.fl_image(func)
+
+project_clip.write_videofile(output_video, audio=True)
+
