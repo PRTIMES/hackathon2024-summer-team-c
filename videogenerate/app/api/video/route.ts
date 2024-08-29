@@ -7,8 +7,8 @@ export async function POST(request: Request) {
     const data = await request.json();
 
     // 例: リクエストデータを処理する
-    const { subtitles } = data;
-    console.log(subtitles);
+    const { thumbnail, subtitles } = data;
+    console.log(thumbnail, subtitles);
 
     return NextResponse.json({
       video: testVideoBase64,
