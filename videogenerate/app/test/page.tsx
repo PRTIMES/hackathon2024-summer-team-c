@@ -1,6 +1,11 @@
 "use client";
 
 import { useState } from "react";
+// sortable
+import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+import { DndContext } from "@dnd-kit/core";
+import { SortableItem } from "@/components/SortableItem";
+// import { SortableItemProp } from "./type/sortable";
 
 type Article = {
   title: string;
@@ -38,6 +43,9 @@ export default function Test({ base64Image }: Props) {
         body: JSON.stringify(article),
       });
 
+<!--     const { subtitles } = await response.json();
+    setSubtitles(subtitles);
+    return subtitles; -->
       const data = await response.json();
       setSubtitles(data.subtitles);
       return data.subtitles;
@@ -85,17 +93,53 @@ export default function Test({ base64Image }: Props) {
       >
         Get Subtitles
       </button>
+
       <ul className="list-disc mt-4">
         {subtitles.map((subtitle) => (
           <li key={subtitle.id}>{subtitle.content}</li>
         ))}
-      </ul>
-      <button
-        onClick={() => getVideo(base64Image, subtitles)}
-        className="w-auto mt-4 text-white px-4 py-2 rounded-lg bg-black hover:bg-gray-500"
-      >
-        Get Video
-      </button>
+
+
+      <div>
+        <DndContext
+          onDragEnd={(event) => {
+            const { active, over } = event;
+            if (over == null) {
+              return;
+            }
+            if (active.id !== over.id) {
+              setSubtitles((subtitles) => {
+                const oldIndex = subtitles.findIndex(
+                  (subtitle) => subtitle.id === active.id
+                );
+                const newIndex = subtitles.findIndex(
+                  (subtitle) => subtitle.id === over.id
+                );
+                return arrayMove(subtitles, oldIndex, newIndex);
+              });
+            }
+          }}
+        >
+          <SortableContext items={subtitles}>
+            <div>
+              {subtitles.map((subtitle) => (
+                <div className="border m-3">
+                  <SortableItem
+                    id={subtitle.id}
+                    content={subtitle.content}
+                    key={subtitle.id}
+                  />
+                </div>
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
+        {/* <div className="text-red-500">{JSON.stringify(subtitles)}</div> */}
+      </div>
+
+      
+      <button onClick={() => getVideo(base64Image,subtitles)} className="w-auto mt-4 bg-[#2a4b7a] text-white px-4 py-2 rounded-lg hover:bg-[#1E90FF]">Get Video</button>
+
       {video && (
         <video controls width="600" className="mt-4">
           <source src={`${video}`} type="video/mp4" />
