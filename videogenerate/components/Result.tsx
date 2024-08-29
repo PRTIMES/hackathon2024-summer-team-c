@@ -19,8 +19,8 @@ const getSingleItem = async (companyId, releaseId) => {
 };
 
 const Result = ({ data, setData }) => {
-  const [companyId, setCompanyId] = useState(''); 
-  const [releaseId, setReleaseId] = useState(''); 
+  const [companyId, setCompanyId] = useState<string | null>(''); 
+  const [releaseId, setReleaseId] = useState<string | null>(''); 
   const [error, setError] = useState(null); 
 
   const handleClick = async () => {
