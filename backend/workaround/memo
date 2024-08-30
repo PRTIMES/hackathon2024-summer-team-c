@@ -34,3 +34,79 @@ project_clip = clip1.fl_image(func)
 
 project_clip.write_videofile(output_video, audio=True)
 
+オーディオファイルの時間の長さが仮にあった時、表示される時間よりも長めに表示
+インターバルをつける
+
+音声をいじれるもの
+
+import json
+from moviepy.editor import ImageClip, AudioFileClip, TextClip, CompositeVideoClip
+
+def generate_movie(image_path: str, subtitles_file: str):
+    # 画像を読み込む
+    image_clip = ImageClip(image_path)
+
+    # 動画のサイズを指定（例: 1080x1920）
+    movie_size = (1080, 1920)
+
+    # 画像のアスペクト比を維持しつつ、動画サイズに合わせる
+    image_clip = image_clip.resize(height=movie_size[1])  # 高さを基準にリサイズ
+    if image_clip.w > movie_size[0]:  # 幅が超えている場合は幅も調整
+        image_clip = image_clip.resize(width=movie_size[0])
+
+    # 画像を指定したサイズに背景色でパッドする
+    image_clip = image_clip.on_color(size=movie_size, color=(255, 100, 255), pos="center")
+    
+    # 動画の長さを15.5秒に設定
+    video_duration = 15.5
+    image_clip = image_clip.set_duration(video_duration)
+
+    # サブタイトルをJSONファイルから読み込む
+    with open(subtitles_file, 'r', encoding='utf-8') as f:
+        subtitles = json.load(f)
+
+    # 各サブタイトルごとに音声ファイルを割り当てる
+    audio_clips = []
+    for i in range(3):
+        audio_clip = AudioFileClip(f"speech{i}.mp3")
+        audio_duration = min(audio_clip.duration, 5)  # 音声クリップの長さを最大5秒に制限
+        audio_clip = audio_clip.subclip(0, audio_duration)
+        audio_clips.append(audio_clip)
+
+    # サブタイトルクリップを保存するリスト
+    subtitle_clips = []
+    
+    # 各サブタイトルを処理し、表示時間を設定
+    for i, (subtitle, audio_clip) in enumerate(zip(subtitles, audio_clips)):
+        # サブタイトルの開始時間は音声の0.5秒前
+        start_time_subtitle = i * 5.5
+        end_time_subtitle = start_time_subtitle + 5.5
+        
+        # 音声クリップの開始時間
+        start_time_audio = start_time_subtitle + 0.5
+        
+        subtitle_clip = TextClip(
+            subtitle, font="./NotoSansJP-Regular.otf", fontsize=72, color="black", bg_color="white"
+        )
+        subtitle_clip = subtitle_clip.set_duration(5.5).set_start(start_time_subtitle)
+        subtitle_clip = subtitle_clip.set_position(("center", 0.1), relative=True)
+        subtitle_clips.append(subtitle_clip)
+
+        # 音声クリップの時間を調整し、動画に合成
+        audio_clip = audio_clip.set_start(start_time_audio)
+        image_clip = image_clip.set_audio(audio_clip)
+    
+    # 画像クリップとサブタイトルクリップを合成
+    final_clip = CompositeVideoClip([image_clip] + subtitle_clips)
+    
+    # 最終クリップをファイルに書き出す
+    final_clip.write_videofile("video.mp4", fps=24)  # fps=24に設定し、滑らかな動画を出力
+
+# 関数を呼び出して15.5秒の動画を生成
+generate_movie("file.jpeg", "3subtitles.txt")
+
+
+
+#インターバルのモジュールとしてpygame
+
+変化のある背景画像
