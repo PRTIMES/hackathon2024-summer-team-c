@@ -108,7 +108,7 @@ const Result: React.FC<ResultProps> = ({ data, setData, pvdata, setPvdata}) => {
         />
 
         <button onClick={handleClick} className="w-full mt-4 text-white px-4 py-2 rounded-lg bg-black hover:bg-gray-500">
-          記事内容を自動表示する
+          記事内容を自動表示
         </button>
 
         {error && <p className="text-red-500 mt-4">{error}</p>}
