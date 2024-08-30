@@ -18,7 +18,7 @@ export default function ArticleForm({ data, base64Image, setBase64Image }: Props
   return (
     <div className="p-6 rounded-lg shadow-md m-8 mx-auto max-w-6xl border border-black">
       <h1 className="text-2xl font-bold mb-6 text-gray-700 flex flex-col items-center justify-center">
-        手動で動画を生成する場合は、以下のフォームに入力してください。プレスリリースを配信していなくても動画を作成できます
+        手動で動画を生成する場合は、以下のフォームに入力してください。プレスリリースを配信していなくても動画を作成できます。
       </h1>
 
       <form className="space-y-6">
