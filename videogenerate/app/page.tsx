@@ -12,7 +12,7 @@ import Result from "@/components/Result";
 //import Pvresult from "@/components/Pvresult";
 import React, { useState } from 'react';
 import Test from "./test/page";
-import Explain from "@/components/explain";
+import Explain from "@/components/Explain";
 
 // Articleの型を定義します
 export type ReleaseData = {
