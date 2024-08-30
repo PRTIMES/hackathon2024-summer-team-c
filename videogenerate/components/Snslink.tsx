@@ -3,6 +3,7 @@ import { FaYoutube, FaTiktok, FaInstagram } from 'react-icons/fa';
 export default function Snslink() {
     return (
         <div className="flex flex-col items-center justify-center min-auto text-center p-8">
+            <h2 className="text-2xl font-bold mb-4">Click to post the video</h2>
             <a className="flex items-center text-black text-lg font-medium hover:underline mb-2" href="https://www.youtube.com/?gl=JP&hl=ja&app=desktop">
                 <FaYoutube className="mr-2 text-red-600" /> Youtube Short
             </a>
