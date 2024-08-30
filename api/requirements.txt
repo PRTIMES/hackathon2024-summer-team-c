@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+moviepy
+openai
+pydantic
+numpy
+opencv-python
+google-cloud-texttospeech
+google-auth

@@ -1,0 +1,14 @@
+services:
+  api:
+    build: ./api
+    ports:
+      - "80:80"
+    environment:
+      - ENV=production
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GOOGLE_APPLICATION_CREDENTIALS=/key.json
+    volumes:
+      - ./key.json:/key.json:ro
+      - ./api/src/tmp:/api/src/tmp
+    command: uvicorn src.main:app --reload --host 0.0.0.0 --port 80
+

@@ -1,23 +1,22 @@
-import { testVideoBase64 } from "./testVideoData";
 import { NextResponse } from "next/server";
+import { testVideoBase64 } from "./testVideoData";
 
 export async function POST(request: Request) {
   try {
-    // リクエストボディを取得
     const data = await request.json();
+    console.log(data);
 
-    // 例: リクエストデータを処理する
-    const { thumbnail, subtitles } = data;
-    console.log(thumbnail, subtitles);
-
-    return NextResponse.json({
-      video: testVideoBase64,
+    return await fetch("http://localhost:80/video", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
   } catch (error) {
-    // エラーハンドリング
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
+    console.log(error);
+    return Response.json({
+      video: testVideoBase64,
+    });
   }
 }
