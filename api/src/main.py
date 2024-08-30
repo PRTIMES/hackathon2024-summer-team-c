@@ -46,8 +46,12 @@ async def post_video(videoRequest: VideoRequest):
     base64Image = videoRequest.thumbnail
 
     base64Video = generate_video(data_path, base64Image, subtitles)
+    video_path = os.path.join(data_path, "output_video_base64")
+    with open(video_path, "w") as video_file:
+        video_file.write(base64Video)
 
     response = {
         "video": base64Video,
     }
+    print(response)
     return response
