@@ -51,7 +51,7 @@ def generate_video(data_path: str, base64Image: str, subtitles: list[Subtitle]):
     subtitle_clips = []
     for i, subtitle in enumerate(subtitles):
         subtitle_clip = TextClip(
-            subtitle["content"],
+            subtitle.content,
             font=f"{os.path.dirname(os.path.abspath(__file__))}/data/NotoSansJP-Regular.otf",
             fontsize=50,
             color="black",
