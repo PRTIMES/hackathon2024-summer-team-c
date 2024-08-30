@@ -12,6 +12,7 @@ import Result from "@/components/Result";
 //import Pvresult from "@/components/Pvresult";
 import React, { useState } from 'react';
 import Test from "./test/page";
+import Explain from "@/components/explain";
 
 // Articleの型を定義します
 export type ReleaseData = {
@@ -21,15 +22,24 @@ export type ReleaseData = {
   // その他のフィールドを必要に応じて追加してください
 };
 
+export type PvData = {
+  page_view: string;
+  unique_user: string;
+  like: string;
+  // その他のフィールドを必要に応じて追加してください
+};
+
 
 export default function Home() {
   const [data, setData] = useState<ReleaseData | null>(null); // Articleまたはnull
+  const [pvdata, setPvdata] = useState<PvData | null>(null);
   const [base64Image, setBase64Image] = useState<string | null>(null);
 
   return (
     <>
       <Header />
-      <Result data={data} setData={setData} />
+      <Result data={data} setData={setData} pvdata={pvdata} setPvdata={setPvdata} />
+      <Explain/>
       {!data && <ArticleForm data={data} base64Image={base64Image} setBase64Image={setBase64Image} />}
       {data && <ArticleForm data={data} base64Image={base64Image} setBase64Image={setBase64Image} />}
       {/*<Subtitle/>*/}
