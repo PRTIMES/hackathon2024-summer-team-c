@@ -15,18 +15,23 @@ from moviepy.editor import (
 from .classes import Subtitle
 
 
-def decode_base64Image(base64_image: str) -> np.ndarray:
-    im = Image.open(BytesIO(base64.b64decode(base64_image)))
-    image_array = np.array(im)
+def decode_base64Image(image_path: str, base64_image: str) -> np.ndarray:
+    # base64文字列をデコードしてバイナリデータに変換
+    image_data = base64.b64decode(base64_image)
 
-    return image_array
+    # バイナリデータをBytesIOオブジェクトに変換
+    image = Image.open(BytesIO(image_data))
+
+    # 画像をJPEG形式で保存
+    image.save(image_path, "PNG")
 
 
 def generate_video(data_path: str, base64Image: str, subtitles: list[Subtitle]):
-    image_array = decode_base64Image(base64Image)
+    image_path = f"{data_path}/image.jpg"
+    decode_base64Image(image_path, base64Image)
 
     # 画像を読み込む
-    image_clip = ImageClip(image_array)
+    image_clip = ImageClip(image_path)
 
     # 動画のサイズを指定（例: 1080x1920）
     movie_size = (1080, 1920)
